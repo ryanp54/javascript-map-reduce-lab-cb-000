@@ -9007,3 +9007,5 @@ var issuesWithUpdatedApiUrl = issues.map( function(issue) {
     newIssue.url = issue.url.replace(/api\.github\.com/g, "api-v2.github.com")
     return newIssue
   })
+
+var commentCountAcrossIssues = issues.reduce( (issue) => result += issue.comments_count, 0)
