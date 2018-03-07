@@ -9008,4 +9008,19 @@ var issuesWithUpdatedApiUrl = issues.map( function(issue) {
     return newIssue
   })
 
-var commentCountAcrossIssues = issues.reduce( (issue) => result += issue.comments_count, 0)
+var commentCountAcrossIssues = issues.reduce( function(result, issue) {
+    result += issue.comments_count
+    return result
+  }, 0)
+
+var openIssues = issues.map( (issue) => issue.state === 'open' ? issue : undefined ).filter(Boolean)
+
+var nonAutomaticIssues = issues.map( (issue) => issue.body === "This pull request has been automatically created by learn.co." ? undefined : issue).filter(Boolean)
+
+function displayIssues(issuesForPage) {
+  document.getElementById("results").innerHTML = issuesForPage.map( function(issue) {
+    return `<tr><td>${issue.body}</td><td>${issue.created_at}</td><td>${issue.state}</td></tr>`
+  }).join('\n')
+}
+
+displayIssues(nonAutomaticIssues)
